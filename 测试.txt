@@ -1,1 +1,61 @@
 郑福景 阿景啊 白龙游方
+
+提交到两个不相同名字的远程分支仓库
+码云     master
+github   main
+
+1.新建文件    测试.txt     
+
+                添加内容   郑福景
+
+然后打开终端 或   文件夹中右键   git Bash  Here
+
+第一步   git init                       初始化仓库
+
+第二步   git add ./                     添加到暂存区
+
+第三步   git commit -m "注释"           提交到本地仓库
+
+         如果版本不一致  git pull origin master    
+
+
+第四步   git remote add origin  url     添加仓库路径(可以是gitee或github,只能有一个)
+
+第五步   git push -u origin  master   如果仓库路径是码云    那就推送到码云的master分支上
+         git push -u origin  main     如果仓库路径是github  那就推送到github的main分支上
+
+
+
+测试：仓库路径是码云gitee
+
+第六步   直接    git push -u origin  master  推送到了码云上
+
+
+第七步  这时如果你直接    git push -u   github仓库路径   main
+
+         会出现报错
+error: src refspec main does not match any 
+error: failed to push some refs to [url]
+         在最后一步push的时候报错，说没有main这个分支，但是我检查了我的GitHub默认分支确实命名为main
+
+
+         出现这个问题的原因是：
+         在我们执行 git init 的时候，git客户端为我们创建了一个名为master的默认分支，但是github远程仓库上却没有master分支（默认分支为main).
+
+        解决方案：
+
+        解决方案 A (这就两个远程仓库同名了 master)
+        如果你想把分支命名为 master：
+        运行 git push -u origin master 而不是 git push -u origin main
+
+        解决方案B (gitee 名为master  github 名为main)
+        如果你想把分支命名为main：
+
+        ① 先运行  git checkout -B main  创建并切换main子分支
+        ② 在执行  git push -u github仓库路径  main    提交到github上
+
+        ③ 之后 git checkout master     切换分支
+        ④ 然后 git  branch  -d  main   可以删除main分支
+
+
+
